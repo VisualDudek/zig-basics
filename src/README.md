@@ -2,6 +2,7 @@
 '''txt
 
 // zig run -lc <filename.zig>
+
 '''
 
 
@@ -9,7 +10,9 @@
 '''txt
 
 // run with: zig run <filename.zig> -- [args]
+
 // only for testing autodoc.py
+
 '''
 
 
