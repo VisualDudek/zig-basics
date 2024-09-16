@@ -1,4 +1,5 @@
 // run with: zig run <filename.zig> -- [args]
+// only for testing autodoc.py
 const std = @import("std");
 const print = std.debug.print;
 
