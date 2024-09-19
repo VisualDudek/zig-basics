@@ -2,4 +2,5 @@
 A collection of small Zig programs for learning and experimentation.
 
 ## Structure
-- **[src](./src/)**: Fundamental Zig programs covering syntax and basic concepts.
+- **[fundamentals](./fundamentals/)**  Fundamental Zig programs covering syntax and basic concepts.
+- **[mini-projects](./mini-projects/)**  Mini projects
