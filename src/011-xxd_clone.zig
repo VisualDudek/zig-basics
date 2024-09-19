@@ -12,7 +12,6 @@ pub fn main() !void {
 
     // var buffer: [4]u8 = undefined;
     var buffer: [1024]u8 = undefined;
-    var c: u8 = undefined;
 
     while (true) {
         const bytes_read = try stdin.read(&buffer);
@@ -20,12 +19,10 @@ pub fn main() !void {
             break;
         }
         for (buffer[0..bytes_read], 0..) |byte, index| {
-            c = byte;
             if (byte == '\n') {
-                c = '.';
-                buffer[index] = c;
+                buffer[index] = '.';
             }
-            try stdout.print("{X:0>2} ", .{c});
+            try stdout.print("{X:0>2} ", .{byte});
         }
         try stdout.print("{s}", .{[_]u8{' '} ** 20});
         try stdout.print("{s}\n", .{buffer[0..bytes_read]});
