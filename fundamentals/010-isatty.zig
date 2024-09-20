@@ -1,5 +1,3 @@
-// zig run -lc <filename.zig>
-
 const std = @import("std");
 const print = std.debug.print;
 
