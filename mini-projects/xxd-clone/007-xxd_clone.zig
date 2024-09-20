@@ -1,6 +1,6 @@
 // xxd clone
-// DONE: print two lines, one for hex and other for binary representation
-// TODO: line feed print in red, PARTIALLY DONE, for full solution need to refactor code, NEXT it.
+// DONE: refactor part of code that print and better handle LF
+// DOEN: print in red binary LF
 
 const std = @import("std");
 const print = std.debug.print;
@@ -11,6 +11,16 @@ const UTF8 = struct {
 };
 
 pub fn main() !void {
+    const help =
+        \\For Unicode Input into terminal press:
+        \\Ctrl + Shift + U
+        \\smiling face emoji: 1f60a
+        \\Send EOF to exit (CTRL + D)
+        \\
+    ;
+    // print help
+    print("{s}\n", .{help});
+
     const stdin = std.io.getStdIn().reader();
     const stdout = std.io.getStdOut().writer();
 
@@ -33,11 +43,7 @@ pub fn main() !void {
         buffer_legacy = buffer;
 
         // print hex
-        for (buffer[0..bytes_read], 0..) |byte, index| {
-            // check for line-feed
-            if (byte == '\n') {
-                buffer[index] = '.';
-            }
+        for (buffer[0..bytes_read]) |byte| {
             // if byte is UTF-8 print in color or LR in red
             if (byte == '\n') {
                 try stdout.print("{s}{X:0>2}{s} ", .{ red, byte, reset });
@@ -56,7 +62,12 @@ pub fn main() !void {
                 n_bytes = utf8CharSize(byte); // WOW CO ZA BUGGGG NIESAMOWITE
                 try stdout.print("{s}{s}{s}", .{ green, buffer[index..(index + n_bytes)], reset });
             } else {
-                try stdout.print("{s}", .{[1]u8{byte}});
+                // check for line-feed
+                if (byte == '\n') {
+                    try stdout.print("{s}.{s} ", .{ red, reset });
+                } else {
+                    try stdout.print("{s}", .{[1]u8{byte}});
+                }
             }
         }
         // need new line bc. we swap all \n into dot .
@@ -68,6 +79,8 @@ pub fn main() !void {
             // if byte is UTF-8 print in color
             if (isUFT_8(byte)) {
                 try stdout.print("{s}{b:0>8}{s} ", .{ green, byte, reset });
+            } else if (byte == '\n') {
+                try stdout.print("{s}{b:0>8}{s} ", .{ red, byte, reset });
             } else {
                 try stdout.print("{b:0>8} ", .{byte});
             }
