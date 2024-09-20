@@ -18,8 +18,13 @@ pub fn main() !void {
         \\Send EOF to exit (CTRL + D)
         \\
     ;
-    // print help
-    print("{s}\n", .{help});
+    // print help if stdin is TTY
+    const stdin_fd = std.io.getStdIn().handle;
+    const is_in_tty = std.posix.isatty(stdin_fd);
+    if (is_in_tty) {
+        std.debug.print("Is stdin a TTY? {}\n", .{is_in_tty});
+        print("{s}\n", .{help});
+    }
 
     const stdin = std.io.getStdIn().reader();
     const stdout = std.io.getStdOut().writer();
