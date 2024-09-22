@@ -1,6 +1,7 @@
 // xxd clone
-// TODO: check whitespace chars; DONE added fn: is_whitespace
 // TODO: add first column with offset of the data in hex
+// TODO: print only 8 bytes in one row
+// TODO: refactor code to have fn: that prints hex, UTF-8 and binary
 
 const std = @import("std");
 const print = std.debug.print;
