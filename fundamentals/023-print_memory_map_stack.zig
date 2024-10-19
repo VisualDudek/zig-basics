@@ -41,7 +41,7 @@ pub fn main() !void {
     try printMemoryMap(allocator, pid);
 }
 
-fn printMemoryMap(allocator: std.mem.Allocator, pid: i32) !void {
+pub fn printMemoryMap(allocator: std.mem.Allocator, pid: i32) !void {
     const stdout = std.io.getStdOut().writer();
 
     // Create path to maps file
